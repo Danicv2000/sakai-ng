@@ -25,3 +25,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+va en el topbar
+   ## <a class="layout-topbar-logo" routerLink="">
+     ##   <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : ##'logo-white'}}.svg" alt="logo">
+   ##     <span>SAKAI</span>
+  ##  </a>

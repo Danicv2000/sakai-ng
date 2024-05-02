@@ -6,7 +6,7 @@
     top: 0;
     width: 100%;
     padding: 0 2rem;
-    background-color: lightsteelblue;
+    background-color: rgb(11, 79, 167);
 
     transition: left $transitionDuration;
     display: flex;
@@ -37,7 +37,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        color: var(--text-color-secondary);
+        color: white;
         border-radius: 50%;
         width: 3rem;
         height: 3rem;
@@ -112,7 +112,7 @@
             position: absolute;
             flex-direction: column;
             background-color: var(--surface-overlay);
-            box-shadow: 0px 3px 5px rgba(0,0,0,.02), 0px 0px 2px rgba(0,0,0,.05), 0px 1px 4px rgba(0,0,0,.08);
+            box-shadow: 0px 3px 5px rgba(238, 231, 231, 0.02), 0px 0px 2px rgba(245, 241, 241, 0.05), 0px 1px 4px rgba(241, 239, 239, 0.08);
             border-radius: 12px;
             padding: 1rem;
             right: 2rem;
