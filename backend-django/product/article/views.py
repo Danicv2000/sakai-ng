@@ -1,12 +1,36 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 # Create your views here.
-from http.client import HTTPResponse
-from django.shortcuts import render
+def index(request):
+    return HttpResponse("Sistema de Gestión")
+
+import pymongo
+
+client = pymongo.MongoClient('mongodb://localhost:27017/?retryWrites=true&loadBalanced=false&serverSelectionTimeoutMS=5000&connectTimeoutMS=10000&3t.uriVersion=3&3t.connection.name=data&3t.alwaysShowAuthDB=true&3t.alwaysShowDBFromUserRole=true')
+#Define DB Name
+dbname = client['admin']
+
+#Define Collection
+collection = dbname['mascot']
+
+mascot_1={
+    "name": "Conexión válida",
+    "type" : "Villa"
+}
+
+collection.insert_one(mascot_1)
+
+mascot_details = collection.find({})
+
+for r in mascot_details:
+    print(r['name'])
+
+
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
-from api.models import User
+from user.models import User
 from .serializers import Relacion31Serializer, UserSerializers,AuthokenSerializer
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -747,15 +771,8 @@ def categoria_printp(self, pk=None):
 
 from django.db.models import Count, Q
 from django.shortcuts import render
-from .models import Passenger
 
-def ticket_class_view(request):
-    dataset = Passenger.objects \
-        .values('ticket_class') \
-        .annotate(survived_count=Count('ticket_class', filter=Q(survived=True)),
-                  not_survived_count=Count('ticket_class', filter=Q(survived=False))) \
-        .order_by('ticket_class')
-    return render(request, 'ticket_class.html', {'dataset': dataset})
+
 
 
 def ticket_classv(request):
@@ -770,7 +787,7 @@ def ticket_classv(request):
 import json
 from django.db.models import Count, Q
 from django.shortcuts import render
-from .models import Passenger
+
 
 def ticket_class_view_2(request):
     dataset = Disciplina.objects \

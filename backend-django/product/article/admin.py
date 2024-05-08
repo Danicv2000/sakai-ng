@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-
 from .models import DisciplinaAdmin,Relacion31,Relacion,PlanAdmin,Departamento, EventsAdmin,ProfesorAdmin,PlanAdmin,Profesor,Plan_Estudio,Events,Disciplina,Asignatura,AsignaturaAdmin,Estudiante,Curso,Matricula,Carrera
 
 from django.utils.translation import gettext as _

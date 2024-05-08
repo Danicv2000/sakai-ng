@@ -1,6 +1,9 @@
+from collections import Counter
 from django.db import models
 from django.contrib import admin
-# Create your models here.
+from django.db.models import Case, When,Count
+from django.core.mail import send_mail
+import math
 from django.conf import settings
 
 class Carrera(models.Model):
@@ -194,6 +197,7 @@ class Events(models.Model):
             )
  
 
+  
 
 class Relacion (models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)

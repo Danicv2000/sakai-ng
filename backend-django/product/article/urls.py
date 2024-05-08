@@ -1,11 +1,12 @@
 from django.urls import path
 
-from article.send_email import send_email
-from public.views import formularioContacto, send
+from article.views import formularioContacto, send
 from django.views.decorators.csrf import csrf_exempt
-from public import views
+from article import views
+from . import views
 
 urlpatterns=[
+    path('',views.index,name='index'),
     path('signup/',views.CreateUserView.as_view()),
     path('login/',views.LoginView.as_view()),
     path('logout/',views.LogoutView.as_view(), name='auth_logout'),
@@ -34,11 +35,11 @@ urlpatterns=[
     path('printp/', views.generar_pdfp, name='pdfp'),
     path('printp/<int:pk>', views.categoria_printp, name='categoria_print_one'),
 
-    path('send', csrf_exempt(send_email)),
+
 
     path('formularioContacto/', formularioContacto),
 
-    path('ticket_class/', views.ticket_class_view),
+
     path('ticket_class2/', views.ticket_class_view_2),
     path('ticket_class1/', views.ticket_classv),
 
@@ -157,9 +158,4 @@ urlpatterns=[
     path('depa/create/', views.DepartamentoCreateView.as_view(), name='relacion_u'),
     path('depa/', views.DepartamentoListView.as_view(), name='relacion_u'),
     path('status/', views.Status.as_view(), name='u'),
-
-
-
-
-
 ]
