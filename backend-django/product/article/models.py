@@ -9,10 +9,10 @@ from django.conf import settings
 class Carrera(models.Model):
     codigo = models.CharField(max_length=3, primary_key=True)
     nombre = models.CharField(max_length=50)
-   
+
 
     def __str__(self):
-       return self.nombre 
+       return self.nombre
 
 class Estudiante(models.Model):
     dni = models.CharField(max_length=8, primary_key=True)
@@ -63,7 +63,7 @@ class Asignatura(models.Model):
     horas_seminarios = models.IntegerField(verbose_name='Cantidad de Horas Seminario', blank=True, null=True, default=0)
 
     def __str__(self):
-        
+
       return self.nombre
 class Profesor(models.Model):
     STATUS_CHOICES = (
@@ -78,15 +78,14 @@ class Profesor(models.Model):
     movil = models.IntegerField(null=True,blank=True)
     categoria_doc = models.CharField(max_length=50)
     categorias_cientificas = models.CharField(max_length=50)
-
     responsabilidad= models.CharField( max_length=250, blank=False, default='')
     tipo_relacion= models.CharField(max_length=50, choices=STATUS_CHOICES)
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
 
-  
+
     def __str__(self):
-        return self.name     
+        return self.name
 class Plan_Estudio(models.Model):
 
     STATUS_CHOICES = (
@@ -104,7 +103,7 @@ class Plan_Estudio(models.Model):
     semestre = models.CharField(max_length=50, blank=False, default='')
     tipo_curso = models.CharField(max_length=50, choices=STATUS_CHOICES)
     profesores = models.ManyToManyField(Profesor,through='Relacion2')
-    
+
     nombre = models.CharField(max_length=255,blank=True, default='')
     horas_conferencias = models.IntegerField(verbose_name='Cantidad de Horas Conferencia', blank=True, null=True,
                                              default=0)
@@ -123,8 +122,8 @@ class Plan_Estudio(models.Model):
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
 
-   
-   
+
+
     def __str__(self):
       return self.grupo
 
@@ -195,9 +194,9 @@ class Events(models.Model):
                 recipient_list=[self.Profesor.email],
                 fail_silently=False,
             )
- 
 
-  
+
+
 
 class Relacion (models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
@@ -231,9 +230,9 @@ class Relacion3(models.Model):
     asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
 
 class Relacion31(models.Model):
-    asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE) 
+    asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan_Estudio, on_delete=models.CASCADE)
-    
+
 
 class RelacionInLine31(admin.TabularInline):
     model = Relacion31
@@ -246,7 +245,7 @@ class RelacionInLine3(admin.TabularInline):
 
 class PlanAdmin(admin.ModelAdmin):
     inlines = (RelacionInLine3,RelacionInLine2,RelacionInLine31)
-    
+
 class AsignaturaAdmin(admin.ModelAdmin):
     inlines = (RelacionInLine3,RelacionInLine31)
 
@@ -265,4 +264,3 @@ class Departamento(models.Model):
      nombre = models.CharField(max_length=50, blank=False, default='')
      def __str__(self):
         return self.nombre
-    
