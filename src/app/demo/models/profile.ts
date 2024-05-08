@@ -1,0 +1,85 @@
+export class User{
+  username: string;
+  email: string;
+  password:string
+}
+
+export class Profesor {
+  id?: number;
+ name?: string;
+ email?: string;
+ telefono? :number;
+ movil? :number;
+ categoria_doc?: string;
+ categorias_cientificas?: string;
+ titulo?: string;
+ responsabilidad?: string;
+ tipo_relacion?: string;
+ plan?: Plan_Estudio;
+}
+export class Disciplina{
+  id: number;
+  nombre: string;
+  profesores: Profesor;
+}
+export class Relacion{
+  id: number;
+  profesor: number;
+  disciplina: number;
+}
+export class Asignatura{
+  id?: number;
+  nombre?: string;
+  horas_conferencias?: number;
+  horas_cp?: number;
+  horas_cpc?: number;
+  horas_lab?: number;
+  horas_taller?: number;
+  horas_seminarios ?: number;
+ 
+
+}
+export class Plan_Estudio{
+  id?: number;
+  asignatura?: Asignatura;
+  carrera?: string;
+  anno ?: string;
+  curso?: Date;
+  curso_f?: Date;
+  tipo_curso ?: string;
+  semestre ?: string;
+  grupo?:string;
+
+}
+export class Relaciones{
+  id: number;
+  profesor: number;
+  plan: number;
+}
+export enum Estados {
+ "pendiente"  = "pendiente",
+  "proceso" = "proceso",
+  "resuelto" = "resuelto",
+  "cerrado" = "cerrado"
+}
+export class Events{
+  id?: any;
+  profesores?: Profesor;
+  name?: string;
+  estado?: Estados;
+  start ?: Date;
+  end?: Date;
+
+
+}
+export class Relacions{
+  id: number;
+  profesor: number;
+  event: number;
+}
+
+class Send{
+  email:string;
+  subject:string;
+  message:string;
+}
