@@ -5,7 +5,7 @@ export class User{
 }
 
 export class Profesor {
-  id?: number;
+  id?: string;
  name?: string;
  email?: string;
  telefono? :number;
@@ -36,7 +36,7 @@ export class Asignatura{
   horas_lab?: number;
   horas_taller?: number;
   horas_seminarios ?: number;
- 
+
 
 }
 export class Plan_Estudio{

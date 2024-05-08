@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core'; 
-import { Product } from 'src/app/demo/api/product';
+import { Component, OnInit} from '@angular/core';
+import { Profesor } from 'src/app/demo/models/profile';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
@@ -11,7 +11,7 @@ import { DocenciaService } from 'src/app/demo/service/docencia.service';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 
-  
+
 })
 export class ProfileComponent implements OnInit {
 
@@ -21,11 +21,11 @@ export class ProfileComponent implements OnInit {
 
   deleteProductsDialog: boolean = false;
 
-  products: Product[] = [];
+  products: Profesor[] = [];
 
-  product: Product = {};
+  product: Profesor = {};
 
-  selectedProducts: Product[] = [];
+  selectedProducts: Profesor[] = [];
 
   submitted: boolean = false;
 
@@ -35,7 +35,9 @@ export class ProfileComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private productService: ProductService, private messageService: MessageService,private docenciaService: DocenciaService) { }
+  constructor( private messageService: MessageService,private docenciaService: DocenciaService) {
+      this.openNew();
+  }
 
   ngOnInit() {
       this.docenciaService.listarProfesor().subscribe(data => {
@@ -56,28 +58,53 @@ export class ProfileComponent implements OnInit {
       ];
 
       this.statuses = [
-          { label: 'INSTOCK', value: 'instock' },
-          { label: 'LOWSTOCK', value: 'lowstock' },
-          { label: 'OUTOFSTOCK', value: 'outofstock' }
+          { label: 'Completo', value: 'Completo' },
+          { label: 'Contrato', value: 'Contrato' },
+          { label: 'Colaborar', value: 'Colaborar' }
       ];
   }
 
-  openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
-  }
+    openNew() {
+        this.product = {
+            name: '',
+            email: '',
+            telefono: 0,
+            movil: 0,
+            categoria_doc: '',
+            categorias_cientificas: '',
+            titulo: '',
+            responsabilidad: '',
+            tipo_relacion: '',
+        };
+        this.submitted = false;
+        this.productDialog = true;
+    }
 
-  deleteSelectedProducts() {
+    addProfile() {
+        if (this.productDialog) {
+            this.docenciaService.agregarProfesor(this.product).subscribe(
+                response => {
+                    console.log('Perfil creado con éxito', response);
+                    this.openNew(); // Abre un nuevo diálogo después de agregar el perfil
+                },
+                error => {
+                    console.log('Hubo un error al crear el perfil', error);
+                }
+            );
+        } else {
+            console.log('Debe abrir el diálogo del producto antes de agregar un perfil');
+        }
+    }
+    deleteSelectedProducts() {
       this.deleteProductsDialog = true;
   }
 
-  editProduct(product: Product) {
+  editProduct(product: Profesor) {
       this.product = { ...product };
       this.productDialog = true;
   }
 
-  deleteProduct(product: Product) {
+  deleteProduct(product: Profesor) {
       this.deleteProductDialog = true;
       this.product = { ...product };
   }
@@ -112,8 +139,6 @@ export class ProfileComponent implements OnInit {
               this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
           } else {
               this.product.id = this.createId();
-              this.product.code = this.createId();
-              this.product.image = 'product-placeholder.svg';
               // @ts-ignore
               this.product.tipo_relacion = this.product.tipo_relacion ? this.product.tipo_relacion.value : 'INSTOCK';
               this.products.push(this.product);

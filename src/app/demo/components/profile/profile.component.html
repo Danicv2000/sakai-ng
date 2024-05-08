@@ -6,7 +6,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)=" openNew(); addProfile()"></button>
                         <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </ng-template>
@@ -201,11 +201,11 @@
 
                 <div class="formgrid grid">
                     <div class="field col">
-                        <label for="price">Phone</label>
-                        <p-inputNumber id="telefono" [(ngModel)]="product.telefono" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                        <label for="telefono">Phone</label>
+                        <p-inputNumber id="telefono" [(ngModel)]="product.telefono" ></p-inputNumber>
                     </div>
                     <div class="field col">
-                        <label for="quantity">Mobile</label>
+                        <label for="movil">Mobile</label>
                         <p-inputNumber id="movil" [(ngModel)]="product.movil"></p-inputNumber>
                     </div>
                 </div>
