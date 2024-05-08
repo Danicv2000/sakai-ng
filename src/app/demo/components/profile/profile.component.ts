@@ -3,7 +3,7 @@ import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
-
+import { DocenciaService } from 'src/app/demo/service/docencia.service';
 
 @Component({
 
@@ -35,17 +35,24 @@ export class ProfileComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private productService: ProductService, private messageService: MessageService) { }
+  constructor(private productService: ProductService, private messageService: MessageService,private docenciaService: DocenciaService) { }
 
   ngOnInit() {
-      this.productService.getProducts().then(data => this.products = data);
-
+      this.docenciaService.listarProfesor().subscribe(data => {
+        console.log(data)
+        this.products = data;
+    });
       this.cols = [
-          { field: 'product', header: 'Product' },
-          { field: 'price', header: 'Price' },
-          { field: 'category', header: 'Category' },
-          { field: 'rating', header: 'Reviews' },
-          { field: 'inventoryStatus', header: 'Status' }
+        { field: 'id', header: 'id' },
+        { field: 'nombre', header: 'name' },
+        { field: 'email', header: 'email' },
+        { field: 'titulo', header: 'title' },
+        { field: 'categoria_doc', header: 'documentCategory' },
+        { field: 'categorias_cientificas', header: 'scientificCategories' },
+        { field: 'telefono', header: 'phone' },
+        { field: 'movil', header: 'mobile' },
+        { field: 'responsabilidad', header: 'responsibility' },
+        { field: 'tipo_relacion', header: 'relationshipType' }
       ];
 
       this.statuses = [
@@ -100,7 +107,7 @@ export class ProfileComponent implements OnInit {
       if (this.product.name?.trim()) {
           if (this.product.id) {
               // @ts-ignore
-              this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
+              this.product.tipo_relacion = this.product.tipo_relacion.value ? this.product.tipo_relacion.value : this.product.tipo_relacion;
               this.products[this.findIndexById(this.product.id)] = this.product;
               this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
           } else {
@@ -108,7 +115,7 @@ export class ProfileComponent implements OnInit {
               this.product.code = this.createId();
               this.product.image = 'product-placeholder.svg';
               // @ts-ignore
-              this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
+              this.product.tipo_relacion = this.product.tipo_relacion ? this.product.tipo_relacion.value : 'INSTOCK';
               this.products.push(this.product);
               this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
           }

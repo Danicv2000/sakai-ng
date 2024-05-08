@@ -20,7 +20,7 @@
             <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Manage Products</h5>
+                        <h5 class="m-0">Teachers</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
@@ -32,30 +32,48 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+                        <th pSortableColumn="id">Identifier <p-sortIcon field="id"></p-sortIcon></th>
                         <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                   
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="title">Title <p-sortIcon field="title"></p-sortIcon></th>
+                        <th pSortableColumn="documentCategory">Document Category <p-sortIcon field="documentCategory"></p-sortIcon></th>
+                        <th pSortableColumn="scientificCategories">Scientific Categories <p-sortIcon field="scientificCategories"></p-sortIcon></th>
+                        <th pSortableColumn="phone">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+                        <th pSortableColumn="mobile">Mobile <p-sortIcon field="mobile"></p-sortIcon></th>
+                        <th pSortableColumn="responsibility">Responsibility <p-sortIcon field="responsibility"></p-sortIcon></th>
+                        <th pSortableColumn="relationshipType">Relationship Type <p-sortIcon field="relationshipType"></p-sortIcon></th>
                         <th></th>
                     </tr>
                     <tr>
                         <th style="width: 4rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="code"></p-columnFilter>
+                            <p-columnFilter type="text" field="id"></p-columnFilter>
                         </th>
                         <th>
                             <p-columnFilter type="text" field="name"></p-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter type="text" field="price"></p-columnFilter>
+                            <p-columnFilter type="text" field="email"></p-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter type="text" field="category"></p-columnFilter>
+                            <p-columnFilter type="text" field="title"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="documentCategory"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="scientificCategories"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="phone"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="mobile"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="responsibility"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="relationshipType"></p-columnFilter>
                         </th>
                         <th>
                             <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
@@ -78,27 +96,51 @@
                         <td>
                             <p-tableCheckbox [value]="product"></p-tableCheckbox>
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.code || product.id}}
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ID</span>
+                            {{product.id || product.id}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Name</span>
                             {{product.name}}
                         </td>
                        
-                        <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Price</span>
-                            {{product.price | currency:'USD'}}
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Email</span>
+                            {{product.email}}
                         </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Category</span>
-                            {{product.category}}
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Title</span>
+                            {{product.titulo}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Document Category</span>
+                            {{product.categoria_doc}}
                         </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Scientific Categories</span>
+                            {{product.categorias_cientificas}}
+                        </td>
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Phone</span>
+                            {{product.telefono}}
+                        </td>
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Mobile</span>
+                            {{product.movil}}
+                        </td>
+                        
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Responsibility</span>
+                            {{product.responsabilidad}}
+                        </td>
+                        <td style="width:14%; min-width: 10rem;">
+                            <span class="p-column-title">Relationship Type</span>
+                            <span [class]="'product-badge tipo_relacion-' + (product.tipo_relacion ? product.tipo_relacion.toLowerCase() : '')">{{product.tipo_relacion}}</span>
                         </td>
                         <td>
                             <div class="flex">
@@ -125,9 +167,9 @@
                 </div>
                 <div class="field">
                     <label for="status">Inventory Status</label>
-                    <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Select">
+                    <p-dropdown [(ngModel)]="product.tipo_relacion" inputId="tipo_relacion" optionValue="label" [options]="statuses" placeholder="Select">
                         <ng-template pTemplate="selectedItem">
-                            <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toString().toLowerCase()">{{product.inventoryStatus}}</span>
+                            <span *ngIf="product && product.tipo_relacion" [class]="'product-badge status-' + product.tipo_relacion.toString().toLowerCase()">{{product.tipo_relacion}}</span>
                         </ng-template>
                         <ng-template let-option pTemplate="item">
                             <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
