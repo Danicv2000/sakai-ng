@@ -44,52 +44,52 @@
                         <th pSortableColumn="relationshipType">Relationship Type <p-sortIcon field="relationshipType"></p-sortIcon></th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <th style="width: 4rem">
-                            <p-columnFilter type="text" field="id"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="name"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="email"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="title"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="documentCategory"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="scientificCategories"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="phone"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="mobile"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="responsibility"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter type="text" field="relationshipType"></p-columnFilter>
-                        </th>
-                        <th>
-                            <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                                        <ng-template let-option pTemplate="item">
-                                            <div class="inline-block vertical-align-middle">
-                                                <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                <span class="ml-1 mt-1">{{ option.name }}</span>
-                                            </div>
-                                        </ng-template>
-                                    </p-multiSelect>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <th style="width: 4rem">-->
+<!--                            <p-columnFilter type="text" field="id"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="name"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="email"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="title"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="documentCategory"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="scientificCategories"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="phone"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="mobile"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="responsibility"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter type="text" field="relationshipType"></p-columnFilter>-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                            <p-columnFilter field="representative" matchMode="in" [showMenu]="false">-->
+<!--                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">-->
+<!--                                    <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">-->
+<!--                                        <ng-template let-option pTemplate="item">-->
+<!--                                            <div class="inline-block vertical-align-middle">-->
+<!--                                                <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />-->
+<!--                                                <span class="ml-1 mt-1">{{ option.name }}</span>-->
+<!--                                            </div>-->
+<!--                                        </ng-template>-->
+<!--                                    </p-multiSelect>-->
+<!--                                </ng-template>-->
+<!--                            </p-columnFilter>-->
+<!--                        </th>-->
+<!--                    </tr>-->
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
                     <tr>
@@ -103,37 +103,37 @@
                             <span class="p-column-title">Name</span>
                             {{product.name}}
                         </td>
-                       
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Email</span>
                             {{product.email}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Title</span>
                             {{product.titulo}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Document Category</span>
                             {{product.categoria_doc}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Scientific Categories</span>
                             {{product.categorias_cientificas}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Phone</span>
                             {{product.telefono}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Mobile</span>
                             {{product.movil}}
                         </td>
-                        
+
                         <td style="width:14%; min-width: 10rem;">
                             <span class="p-column-title">Responsibility</span>
                             {{product.responsabilidad}}
