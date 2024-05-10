@@ -3,7 +3,20 @@ export class User{
   email: string;
   password:string
 }
-
+export enum Estados {
+  "pendiente"  = "pendiente",
+   "proceso" = "proceso",
+   "resuelto" = "resuelto",
+   "cerrado" = "cerrado"
+ }
+ export class Events{
+   name?: string;
+   estado?: Estados;
+   start ?:string |  Date;
+   end?: string | Date;
+ 
+ 
+ }
 export class Profesor {
   id?: string;
  name?: string;
@@ -16,6 +29,8 @@ export class Profesor {
  responsabilidad?: string;
  tipo_relacion?: string;
  plan?: Plan_Estudio;
+ evento?: Events;
+ 
 }
 export class Disciplina{
   id: number;
@@ -56,22 +71,7 @@ export class Relaciones{
   profesor: number;
   plan: number;
 }
-export enum Estados {
- "pendiente"  = "pendiente",
-  "proceso" = "proceso",
-  "resuelto" = "resuelto",
-  "cerrado" = "cerrado"
-}
-export class Events{
-  id?: any;
-  profesores?: Profesor;
-  name?: string;
-  estado?: Estados;
-  start ?: Date;
-  end?: Date;
 
-
-}
 export class Relacions{
   id: number;
   profesor: number;

@@ -18,7 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { DialogModule } from 'primeng/dialog';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule
+    DialogModule,
+    TagModule
   ],
   declarations: [TaskComponent],
 })

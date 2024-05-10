@@ -3,6 +3,8 @@ import { Product } from 'src/app/demo/api/product';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { DocenciaService } from 'src/app/demo/service/docencia.service';
+import { Profesor } from 'src/app/demo/models/profile';
 @Component({
   providers: [MessageService],
   selector: 'app-task',
@@ -10,18 +12,18 @@ import { ProductService } from 'src/app/demo/service/product.service';
   styleUrl: './task.component.scss'
 })
 export class TaskComponent implements OnInit {
-
+    eventos: any[] = []; // Array para almacenar los eventos
     productDialog: boolean = false;
   
     deleteProductDialog: boolean = false;
   
     deleteProductsDialog: boolean = false;
   
-    products: Product[] = [];
+    products!: Profesor[] ;
   
-    product: Product = {};
+    product: Profesor = {};
   
-    selectedProducts: Product[] = [];
+    selectedProducts: Profesor[] = [];
   
     submitted: boolean = false;
   
@@ -31,17 +33,21 @@ export class TaskComponent implements OnInit {
   
     rowsPerPageOptions = [5, 10, 20];
   
-    constructor(private productService: ProductService, private messageService: MessageService) { }
+    constructor(private docenciaService: DocenciaService, private messageService: MessageService) { }
   
     ngOnInit() {
-        this.productService.getProducts().then(data => this.products = data);
+        
+        this.docenciaService.listarProfesor().subscribe(data => {
+            console.log(data)
+            this.products = data;
+        });
   
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'start', header: 'Start' },
             { field: 'end', header: 'End' },
             { field: 'estado', header: 'Estado' },
-            { field: 'inventoryStatus', header: 'Status' }
+            { field: 'evento', header: 'Evento' }
         ];
   
         this.statuses = [
@@ -77,7 +83,20 @@ export class TaskComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
         this.selectedProducts = [];
     }
-  
+    calculateCustomerTotal(name: string) {
+        let total = 0;
+
+        if (this.products) {
+            for (let customer of this.products) {
+                if (customer.evento?.name === name) {
+                    total++;
+                }
+            }
+        }
+
+        return total;
+    }
+   
     confirmDelete() {
         this.deleteProductDialog = false;
         this.products = this.products.filter(val => val.id !== this.product.id);
@@ -101,8 +120,8 @@ export class TaskComponent implements OnInit {
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
             } else {
                 this.product.id = this.createId();
-                this.product.code = this.createId();
-                this.product.image = 'product-placeholder.svg';
+
+
                 // @ts-ignore
                 this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
                 this.products.push(this.product);
@@ -139,5 +158,21 @@ export class TaskComponent implements OnInit {
     onGlobalFilter(table: Table, event: Event) {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'resuelto':
+                return 'danger';
+            case 'proceso':
+                return 'success';
+            case 'pendiente':
+                return 'primary';
+            case 'renewal':
+                return null;
+            default:
+                return 'default'; // or any other default value
+        }
+    }
+
   }
   

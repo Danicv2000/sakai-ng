@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 const baseUrl = 'http://localhost:8000/api/profiles';
 const base = 'http://localhost:8000/profile/';
 const url = 'http://localhost:8000/api/plan';
-const Url = 'http://localhost:8000/api/event';
+const Url = 'http://localhost:8000/event';
 const Base = 'http://localhost:8000/api/disciplina/';
 const BaseUrl = 'http://localhost:8000/api/relacion/';
 const baseurl = 'http://localhost:8000/api/relacions/';

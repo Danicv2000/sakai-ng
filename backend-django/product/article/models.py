@@ -65,6 +65,39 @@ class Asignatura(models.Model):
     def __str__(self):
 
       return self.nombre
+
+
+
+class Events(models.Model):
+    STATUS_CHOICES = (
+        ('pendiente' , 'Pendiente'),
+        ('proceso'   , 'En Proceso'),
+        ('resuelto'  , 'Resuelto'),
+        ('cerrado'   , 'Cerrado')
+    )
+    name = models.CharField(max_length=255,blank=True, default='')
+    start = models.DateTimeField(null=True,blank=True)
+    end = models.DateTimeField(null=True,blank=True)
+    estado = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    def send_email(self):
+        if self.estado == 'pendiente':
+
+              send_mail(
+                'La tarea esta pendiente',
+                'Hagala cuanto antes.',
+                email_desde = settings.EMAIL_HOST_USER,
+                recipient_list=[self.Profesor.email],
+                fail_silently=False,
+            )
+
+
+
 class Profesor(models.Model):
     STATUS_CHOICES = (
         ('completo' ,'Completo'),
@@ -80,6 +113,7 @@ class Profesor(models.Model):
     categorias_cientificas = models.CharField(max_length=50)
     responsabilidad= models.CharField( max_length=250, blank=False, default='')
     tipo_relacion= models.CharField(max_length=50, choices=STATUS_CHOICES)
+    evento = models.ManyToManyField(Events, through='Relacion1')
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -139,7 +173,7 @@ class Curso(models.Model):
     def __str__(self):
         txt = "{0} ({1}) / Docente: {2}"
         return txt.format(self.nombre, self.codigo, self.docente)
-
+ 
 class Matricula(models.Model):
     id = models.AutoField(primary_key=True)
     estudiante = models.ForeignKey(Estudiante, null=False, blank=False, on_delete=models.CASCADE)
@@ -156,7 +190,7 @@ class Matricula(models.Model):
             letraSexo = "o"
         fecMat = self.fechaMatricula.strftime("%A %D/%M/%Y %H:%M:%S")
         return txt.format(self.estudiante.nombreCompleto(), letraSexo, self.curso, fecMat)
-
+   
 class Disciplina(models.Model):
      nombre = models.CharField(max_length=50, blank=False, default='')
      profesores = models.ManyToManyField(Profesor, through='Relacion')
@@ -165,38 +199,6 @@ class Disciplina(models.Model):
 
      def __str__(self):
         return self.nombre
-
-class Events(models.Model):
-    STATUS_CHOICES = (
-        ('pendiente' , 'Pendiente'),
-        ('proceso'   , 'En Proceso'),
-        ('resuelto'  , 'Resuelto'),
-        ('cerrado'   , 'Cerrado')
-    )
-    name = models.CharField(max_length=255,blank=True, default='')
-    start = models.DateTimeField(null=True,blank=True)
-    end = models.DateTimeField(null=True,blank=True)
-    estado = models.CharField(max_length=10, choices=STATUS_CHOICES)
-    profesores = models.ManyToManyField(Profesor, through='Relacion1')
-    created = models.DateTimeField(auto_now=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-    def send_email(self):
-        if self.estado == 'pendiente':
-
-              send_mail(
-                'La tarea esta pendiente',
-                'Hagala cuanto antes.',
-                email_desde = settings.EMAIL_HOST_USER,
-                recipient_list=[self.Profesor.email],
-                fail_silently=False,
-            )
-
-
-
 
 class Relacion (models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
@@ -207,8 +209,8 @@ class DisciplinaAdmin(admin.ModelAdmin):
     inlines = (RelacionInLine,)
 
 class Relacion1(models.Model):
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     tarea = models.ForeignKey(Events, on_delete=models.CASCADE)
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
 class RelacionInLine1(admin.TabularInline):
     model = Relacion1
 class EventsAdmin(admin.ModelAdmin):

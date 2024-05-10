@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
       this.deleteProductDialog = false;
       this.products = this.products.filter(val => val.id !== this.product.id);
       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      this.product = {};
+    
   }
 
   hideDialog() {

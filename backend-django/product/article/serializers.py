@@ -38,13 +38,18 @@ class AuthokenSerializer(serializers.Serializer):
 
 
 
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Events
+        fields=('id','name','estado','start','end')     
+
 
 
 class ProfesorSerializer(serializers.ModelSerializer):
-  
+    evento = EventSerializer(many=True, read_only=True)
     class Meta:
         model = Profesor
-        fields = ('id','name', 'email','categoria_doc','telefono','movil', 'categorias_cientificas','titulo','responsabilidad','tipo_relacion')  
+        fields = ('id','name', 'email','categoria_doc','telefono','movil', 'categorias_cientificas','titulo','responsabilidad','tipo_relacion','evento')  
 class AsignaturaSerializers(serializers.ModelSerializer): 
     class Meta:
         model = Asignatura
@@ -112,12 +117,6 @@ class Relacion31Serializer(serializers.ModelSerializer):
     class Meta:
         model = Relacion31
         fields = ('id', 'asignatura', 'plan')  
-
-class EventSerializer(serializers.ModelSerializer):
-    profesores = ProfesorSerializer(many=True, read_only=True)
-    class Meta:
-        model= Events
-        fields=('id','name','estado','start','end','profesores')     
 
 
 class ContactsSerializer(serializers.ModelSerializer):
