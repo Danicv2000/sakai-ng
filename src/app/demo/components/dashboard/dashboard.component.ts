@@ -26,18 +26,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     items!: MenuItem[];
     highcharts: typeof Highcharts = Highcharts;
     chartOptions: any;
+    chartOption: any;
     departments:Depa[]=[]
     department:Depa[]=[]
     count=[]
     @ViewChild('htmlData') htmlData!: ElementRef;
   
     Api="http://127.0.0.1:8000/counting"
- 
+    Apis="http://127.0.0.1:8000/countdis"
  
     ing_total = [];
     lic_total = [];
     chartData: any;
 
+    list = [];
+    listdrc= [];
 
 
     subscription!: Subscription;
@@ -49,7 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
       this.getDepartments();
-      this.setOptions();
+       this.getCiens();
    
     }
     getDepartments() {
@@ -100,41 +103,54 @@ export class DashboardComponent implements OnInit, OnDestroy {
         };
       })
     }
-    
-  private renderDashboard() {
-    Dashboards.board(this.elementRef.nativeElement, this.options, this.isAsync);
-  }
+    getCiens() {
+      this.http.get(this.Apis).subscribe((data:any) => { 
+        console.log(data)
 
-  private setOptions() {
-    Dashboards.board('container', {
-      gui: {
-          layouts: [{
-              id: 'layout-1',
-              rows: [{
-                  cells: [{
-                      id: 'dashboard-col-0'
-                  }, {
-                      id: 'dashboard-col-1'
-                  }]
-              }]
-          }]
-      },
-      components: [{
-          type: 'HTML',
-          renderTo: 'dashboard-col-0',
-          elements: [
-              {
-                  tagName: 'h1',
-                  textContent: 'Your first dashboard'
+          this.departments.push(data.total) // Cambiado a 'total'
+          this.list.push(data.msc_total) // Añadido 'ing_total'
+          this.listdrc.push(data.drc_total) // Añadido 'lic_total'
+     
+    
+        this.chartOption = {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Categorias Cientificas'
+          },
+          xAxis: {
+            categories: this.departments
+          },
+          yAxis: {
+            min: 0,
+            labels: {
+              overflow: 'justify'
+            }
+          },
+          tooltip: {
+            valueSuffix: ' profesores'
+          },
+          plotOptions: {
+            bar: {
+              dataLabels: {
+                enabled: true
               }
-          ]
-      }, {
-          renderTo: 'dashboard-col-1',
-          type: 'Highcharts',
-         
-      }]
-  });
-  }  
+            }
+          },
+          series: [
+            {
+              name: 'MsC',
+              data: this.list // Cambiado a 'ing_total'
+            },
+            {
+              name: 'DrC',
+              data: this.listdrc // Cambiado a 'lic_total'
+            }
+          ],
+        };
+      })
+    }
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

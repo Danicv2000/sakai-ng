@@ -853,9 +853,6 @@ def Profiledis(request):
 #     total = Profesor.objects.filter(categorias_cientificas='DrC').count()
 #     return  JsonResponse({'total':total})   
 
-def Profiledis(request):
-    total = Disciplina.objects.count()
-    return  JsonResponse({'total':total})    
 
 class DisciplinasListView(ListAPIView):
     serializer_class = DisciplinaSerializer
