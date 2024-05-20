@@ -104,14 +104,31 @@ class Profesor(models.Model):
         ('contrato' , 'Contrato'),
         ('colaborar' , 'Colaborar'),
     )
-    titulo = models.CharField(max_length=50)
+    tit = [ 
+        ('Ing', 'Ing'),
+        ('Lic', 'Lic')
+    ]
+    titulo = models.CharField(max_length=50,choices=tit, default='')
     email = models.EmailField(max_length=50, unique=True)
     name = models.CharField(max_length=50, blank=False, default='')
     telefono = models.IntegerField(null=True,blank=True)
     movil = models.IntegerField(null=True,blank=True)
-    categoria_doc = models.CharField(max_length=50)
-    categorias_cientificas = models.CharField(max_length=50)
-    responsabilidad= models.CharField( max_length=250, blank=False, default='')
+    doc = [  
+        ('PA', 'PA'),
+        ('I', 'I'),
+        ('ADI', 'ADI'),
+        ('PT', 'PT'),
+        ('ATD', 'ATD'),
+        ('A', 'A'),
+    ]
+    categoria_doc = models.CharField(max_length=50,choices=doc, default='I')
+    cien = [
+        ('DrC', 'DrC'),
+        ('MsC', 'MsC')
+    ]
+    categorias_cientificas = models.CharField(max_length=50,choices=cien, default='1')
+ 
+    responsabilidad= models.CharField( max_length=250)
     tipo_relacion= models.CharField(max_length=50, choices=STATUS_CHOICES)
     evento = models.ManyToManyField(Events, through='Relacion1')
     created = models.DateTimeField(auto_now=True)
@@ -134,7 +151,11 @@ class Plan_Estudio(models.Model):
     anno = models.SlugField(verbose_name='Año del grupo')
     curso = models.DateTimeField(null=True,blank=True)
     curso_f = models.DateTimeField(null=True,blank=True)
-    semestre = models.CharField(max_length=50, blank=False, default='')
+    semestre = [
+        ('1', '1'),
+        ('2', '2')
+    ]
+    semestre = models.CharField(max_length=50, choices=semestre, default='1')
     tipo_curso = models.CharField(max_length=50, choices=STATUS_CHOICES)
     profesores = models.ManyToManyField(Profesor,through='Relacion2')
 

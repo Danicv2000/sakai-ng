@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DocenciaService } from 'src/app/demo/service/docencia.service';
 
 @Component({
   selector: 'app-plan',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './plan.component.scss'
 })
 export class PlanComponent {
+
+  constructor(private docenciaService: DocenciaService) { }
+
+
 
 }

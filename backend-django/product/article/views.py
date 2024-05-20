@@ -823,22 +823,35 @@ def count_event(request):
     return  JsonResponse({'total':total})    
 
 
-
+ # ok
 def Profileing(request):
-    total = Profesor.objects.filter(titulo='Ing').count()
-    return  JsonResponse({'total':total})
+    ing_total = Profesor.objects.filter(titulo='Ing').count()
+    lic_total = Profesor.objects.filter(titulo='Lic').count()
+    total = ing_total + lic_total
+    return JsonResponse({'total': total, 'ing_total': ing_total, 'lic_total': lic_total})
 
-def Profilelic(request):
-    total = Profesor.objects.filter(titulo='Lic').count()
-    return  JsonResponse({'total':total})    
+# def ProfileI(request):
+#     total = Profesor.objects.filter(titulo='Ing').count()
+#     return  JsonResponse({'total':total})
 
-def Profilemsc(request):
-    total = Profesor.objects.filter(categorias_cientificas='MsC').count()
-    return  JsonResponse({'total':total})
+# def Profilelic(request):
+#     total = Profesor.objects.filter(titulo='Lic').count()
+#     return  JsonResponse({'total':total})    
 
-def Profiledrc(request):
-    total = Profesor.objects.filter(categorias_cientificas='DrC').count()
-    return  JsonResponse({'total':total})   
+def Profiledis(request):
+    msc_total = Profesor.objects.filter(categorias_cientificas='MsC').count()
+    drc_total = Profesor.objects.filter(categorias_cientificas='DrC').count()
+    total = msc_total + drc_total
+    return JsonResponse({'total': total, 'msc_total': msc_total, 'drc_total': drc_total})
+
+
+# def Profilemsc(request):
+#     total = Profesor.objects.filter(categorias_cientificas='MsC').count()
+#     return  JsonResponse({'total':total})
+
+# def Profiledrc(request):
+#     total = Profesor.objects.filter(categorias_cientificas='DrC').count()
+#     return  JsonResponse({'total':total})   
 
 def Profiledis(request):
     total = Disciplina.objects.count()

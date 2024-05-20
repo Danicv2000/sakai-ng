@@ -50,14 +50,14 @@ urlpatterns=[
 
 
     path('counting',views.Profileing),
-    path('countlic',views.Profilelic),
+    # path('countlic',views.Profilelic),
 
-    path('countmsc',views.Profilemsc),
-    path('countdrc',views.Profiledrc),
+    # path('countmsc',views.Profilemsc),
+    # path('countdrc',views.Profiledrc),
 
     path('countdis',views.Profiledis),
    
-    path('countdisc',views.Profiledisc),
+    # path('countdisc',views.Profiledisc),
     path('countdi',views.DisciplinasListView.as_view()),
    
 

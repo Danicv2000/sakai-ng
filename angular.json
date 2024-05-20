@@ -32,7 +32,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                          "https://code.highcharts.com/dashboards/dashboards.js"
+                        ]
                     },
                     "configurations": {
                         "production": {

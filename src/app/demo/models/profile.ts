@@ -17,6 +17,26 @@ export enum Estados {
  
  
  }
+ export class Departamento{
+  id: number;
+  nombre: string;
+
+
+}
+export class Depa{
+
+  nombre: string;
+  count: number;
+
+}
+export class Depas{
+
+  nombre: string;
+  counting: number;
+}
+export class Total{
+  total: number;
+}
 export class Profesor {
   id?: string;
  name?: string;

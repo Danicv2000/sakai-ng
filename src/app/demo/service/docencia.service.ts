@@ -1,26 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Total,Departamento,Depa,Plan_Estudio} from 'src/app/demo/models/profile';
 
 const baseUrl = 'http://localhost:8000/api/profiles';
 const base = 'http://localhost:8000/profile/';
-const url = 'http://localhost:8000/api/plan';
+const url = 'http://localhost:8000/plan/';
 const Url = 'http://localhost:8000/event';
-const Base = 'http://localhost:8000/api/disciplina/';
+const Base = 'http://localhost:8000/disciplina/';
 const BaseUrl = 'http://localhost:8000/api/relacion/';
 const baseurl = 'http://localhost:8000/api/relacions/';
-const burl = 'http://localhost:8000/api/relacions/';
+const burl = 'http://localhost:8000/api/relaciones/';
+const bu = 'http://localhost:8000/api/re/';
 const back = 'http://localhost:8000/api/asignar';
 
-const bUrl = 'http://localhost:8000/api/send/';
- 
+const bUrl = 'http://localhost:8000/api/send';
 
-let auth_token;
+const cont ='http://localhost:8000/api/count';
+const conte ='http://localhost:8000/api/counte';
+const Aping="http://127.0.0.1:8000/api/counting";
+const Urlic="http://127.0.0.1:8000/api/countlic";
+const dis="http://127.0.0.1:8000/api/countdis";
+const msc="http://127.0.0.1:8000/api/countmsc";
+const drc="http://127.0.0.1:8000/api/countdrc";
+const dep="http://127.0.0.1:8000/api/depa/";
+
+const pa="http://127.0.0.1:8000/api/countpa";
+const i="http://127.0.0.1:8000/api/counti";
+const adi="http://127.0.0.1:8000/api/countadi";
+const pt="http://127.0.0.1:8000/api/countpt";
+const atd="http://127.0.0.1:8000/api/countatd";
+const a="http://127.0.0.1:8000/api/counta";
+
+const lic="http://127.0.0.1:8000/api/dis";
+const ing="http://127.0.0.1:8000/api/disi";
+
+const d="http://127.0.0.1:8000/api/di";
+const m="http://127.0.0.1:8000/api/d";
+
+
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json',
-                              'Authorization':`Bearer ${auth_token}`
-                              })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -32,7 +52,7 @@ export class DocenciaService {
   constructor(private http: HttpClient) {}
 
   End :string = 'http://localhost:8000/api/print/';
- 
+
 
 agregarProfesor(disciplina): Observable<any> {
   let body = {
@@ -81,7 +101,10 @@ listarProfesor(): Observable<any> {
 delete(id: number): Observable<any> {
   return this.http.delete(`${base + 'delete'}/${id}`,httpOptions);
 }
-
+buscarprofesor(id: number): Observable<any> {
+  let a = this.http.get(base + id, {headers:this.headersC});
+  return a;
+}
 
 //Para las relaciones
 agregarRelacion2(disciplina): Observable<any> {
@@ -95,10 +118,41 @@ agregarRelacion2(disciplina): Observable<any> {
   console.log(a);
   return a;
 }
+
+actualizarRelacion2(id:number, disciplina): Observable<any> {
+  let body = JSON.stringify(disciplina);
+  let a = this.http.put(burl  + 'update/'+ id.toString() , body, {
+    headers: this.headersC,
+  });
+  return a;
+}
+
+listarRelacion2(): Observable<any> {
+  let a = this.http.get(burl , {
+    headers: this.headersC,
+  });
+  return a;
+}
+buscarRelacion2(id:number): Observable<any> {
+  let a = this.http.get(burl + id, {headers:this.headersC});
+  return a;
+}
+agregarDepa(disciplina): Observable<any> {
+  let body = {
+    nombre: disciplina.nombre
+  }
+  let a = this.http.post(dep + "create/", body, {
+    headers: this.headersC,
+  });
+  console.log(a);
+  return a;
+}
+
 //------------------------
 agregarDisciplina(disciplina): Observable<any> {
   let body = {
-    nombre: disciplina.nombre
+    nombre: disciplina.nombre,
+
   }
   let a = this.http.post(Base + "create/", body, {
     headers: this.headersC,
@@ -110,13 +164,11 @@ buscarDisciplina(id:number): Observable<any> {
   let a = this.http.get(Base  + id, {headers:this.headersC});
   return a;
 }
-buscarprofesor(id:number): Observable<any> {
-  let a = this.http.get(base  + id, {headers:this.headersC});
-  return a;
-}
+
 actualizarDisciplina(id:number, disciplina): Observable<any> {
   let body = {
-    nombre: disciplina.nombre
+    nombre: disciplina.nombre,
+
   }
   let a = this.http.put(Base + 'update/' + id.toString() , body, {
     headers: this.headersC,
@@ -198,16 +250,21 @@ listarRelacion1(): Observable<any> {
   return a;
 }
 //---------------------------------------------//
+
 getAllplan(): Observable<any> {
   let a = this.http.get(url, {
     headers: this.headersC,
   });
   return a;
 }
-
+getplan(): Observable<Plan_Estudio[]> {
+  let a = this.http.get<Plan_Estudio[]>(url, {
+    headers: this.headersC,
+  });
+  return a;
+}
 createplan(data): Observable<any> {
   let body = {
-    asignatura: data.asignatura,
     carrera: data.carrera,
     anno: data.anno,
     curso: data.curso,
@@ -217,7 +274,7 @@ createplan(data): Observable<any> {
     grupo: data.grupo,
 
   }
-  let a = this.http.post(url + '/create/', body, {
+  let a = this.http.post(url + 'create/', body, {
     headers: this.headersC,
   });
   console.log(a);
@@ -225,8 +282,6 @@ createplan(data): Observable<any> {
 }
 updateplan(id: number, data): Observable<any> {
   let body = {
-
-    asignatura: data.asignatura,
     carrera: data.carrera,
     anno: data.anno,
     curso: data.curso,
@@ -243,6 +298,10 @@ updateplan(id: number, data): Observable<any> {
 
 deleteplan(id: any): Observable<any> {
   return this.http.delete(`${url + '/delete'}/${id}`,httpOptions);
+}
+buscarplan(id:number): Observable<any> {
+  let a = this.http.get(url  + id, {headers:this.headersC});
+  return a;
 }
 //-----------------
 getAllasig(): Observable<any> {
@@ -289,6 +348,36 @@ updateasig(id: number, data): Observable<any> {
 
 deleteasig(id: any): Observable<any> {
   return this.http.delete(`${back + '/delete'}/${id}`,httpOptions);
+}
+
+listarRelacion3(): Observable<any> {
+  let a = this.http.get(bu , {
+    headers: this.headersC,
+  });
+  return a;
+}
+buscarRelacion3(id:number): Observable<any> {
+  let a = this.http.get(bu + id, {headers:this.headersC});
+  return a;
+}
+agregarRelacion3(data): Observable<any> {
+  let body = {
+    asignatura: data.asignatura,
+    plan: data.plan
+  }
+  let a = this.http.post(bu + "create/", body, {
+    headers: this.headersC,
+  });
+  console.log(a);
+  return a;
+}
+
+actualizarRelacion3(id:number, data): Observable<any>{
+  let body = JSON.stringify(data);
+  let a = this.http.put(bu  + '/update/' + id.toString() , body, {
+    headers: this.headersC,
+  });
+  return a;
 }
 //---------------------------------
 getAllevent(): Observable<any> {
@@ -386,4 +475,53 @@ Generar(id:number): Observable<any> {
   return a;
 }
 
+getall(): Observable<Total[]> {
+  return this.http.get<Total[]>(cont);
+}
+gete(): Observable<Total[]> {
+  return this.http.get<Total[]>(conte);
+}
+getlic(): Observable<Total[]> {
+  return this.http.get<Total[]>(Urlic);
+}
+geting(): Observable<Total[]> {
+  return this.http.get<Total[]>(Aping);
+}
+getmsc(): Observable<Total[]> {
+  return this.http.get<Total[]>(msc);
+}
+getdrc(): Observable<Total[]> {
+  return this.http.get<Total[]>(drc);
+}
+getdis(): Observable<Total[]> {
+  return this.http.get<Total[]>(dis);
+}
+listardepa(): Observable<Departamento[]> {
+  return this.http.get<Departamento[]>(dep);
+}
+getpt(): Observable<Total[]> {
+  return this.http.get<Total[]>(pt);
+}
+getpa(): Observable<Total[]> {
+  return this.http.get<Total[]>(pa);
+}
+geti(): Observable<Total[]> {
+  return this.http.get<Total[]>(i);
+}
+getadi(): Observable<Total[]> {
+  return this.http.get<Total[]>(adi);
+}
+getatd(): Observable<Total[]> {
+  return this.http.get<Total[]>(atd);
+}
+geta(): Observable<Total[]> {
+  return this.http.get<Total[]>(a);
+}
+
+getlics(): Observable<Depa[]> {
+  return this.http.get<Depa[]>(lic);
+}
+getings(): Observable<Depa[]> {
+  return this.http.get<Depa[]>(ing);
+}
 }
