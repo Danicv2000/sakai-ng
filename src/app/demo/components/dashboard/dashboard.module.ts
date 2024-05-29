@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { CardModule } from 'primeng/card';
-
+import { ChartModule } from 'primeng/chart';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -22,6 +22,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         StyleClassModule,
         PanelMenuModule,
         ButtonModule,
+        ChartModule,
         DashboardsRoutingModule,
         HighchartsChartModule
     ],
