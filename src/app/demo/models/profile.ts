@@ -9,6 +9,23 @@ export enum Estados {
    "resuelto" = "resuelto",
    "cerrado" = "cerrado"
  }
+ export enum Responsabilidad {
+ 
+  "PA" = "PA" ,
+  "I" = "I" ,
+  "ADI" = "ADI" ,
+  "PT" = "PT" ,
+  "ATD" = "ATD" ,
+  "A" = "A" 
+ }
+ export enum Titulo {
+  "DrC" = "DrC" ,
+  "MsC" = "MsC" 
+ }
+ export enum Titulos{
+  "Ing" = "Ing" ,
+  "Lic" = "Lic" 
+ }
  export class Events{
    name?: string;
    estado?: Estados;
@@ -43,9 +60,9 @@ export class Profesor {
  email?: string;
  telefono? :number;
  movil? :number;
- categoria_doc?: string;
- categorias_cientificas?: string;
- titulo?: string;
+ categoria_doc?: Responsabilidad;
+ categorias_cientificas?: Titulo;
+ titulo?: Titulos;
  responsabilidad?: string;
  tipo_relacion?: string;
  plan?: Plan_Estudio;

@@ -69,7 +69,7 @@ urlpatterns=[
 
     path('countatd',views.ProfileATD),
     path('counta',views.ProfileA),
-
+    path('co',views.Profile),
 
     path('counte',views.count_event),
 
@@ -82,6 +82,7 @@ urlpatterns=[
     path('profile/update/<int:id>',views.ProfileUpdate.as_view()),
     path('profile/delete/<int:id>',views.ProfileDelete.as_view()),
     path('profile/<int:id>', views.ProfesorRetrieveView.as_view(),),
+
 
 
     path('re/',views.ReView.as_view()),

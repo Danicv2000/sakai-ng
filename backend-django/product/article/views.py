@@ -844,6 +844,17 @@ def Profiledis(request):
     total = msc_total + drc_total
     return JsonResponse({'total': total, 'msc_total': msc_total, 'drc_total': drc_total})
 
+def Profile(request):
+        PA_total = Profesor.objects.filter(categoria_doc='PA').count()
+        I_total = Profesor.objects.filter(categoria_doc='I').count()
+        ADI_total = Profesor.objects.filter(categoria_doc='ADI').count()
+        PT_total = Profesor.objects.filter(categoria_doc='PT').count()
+        ATD_total = Profesor.objects.filter(categoria_doc='ATD').count()
+        A_total = Profesor.objects.filter(categoria_doc='A').count()
+        total = PA_total + I_total + ADI_total + PT_total + ATD_total + A_total
+        return JsonResponse({'total': total,'PA_total':PA_total ,'I_total': I_total ,'ADI_total': ADI_total,  'PT_total': PT_total , 'ATD_total': ATD_total , 'A_total': A_total})
+
+
 
 # def Profilemsc(request):
 #     total = Profesor.objects.filter(categorias_cientificas='MsC').count()
@@ -929,5 +940,4 @@ def ProfileATD(request):
 def ProfileA(request):
     total = Profesor.objects.filter(categoria_doc='A').count()
     return  JsonResponse({'total':total})     
-
 

@@ -20,7 +20,7 @@ export class TaskComponent implements OnInit {
     deleteProductsDialog: boolean = false;
   
     products!: Profesor[] ;
-  
+    customers!: Profesor[];
     product: Profesor = {};
   
     selectedProducts: Profesor[] = [];
@@ -40,6 +40,11 @@ export class TaskComponent implements OnInit {
         this.docenciaService.listarProfesor().subscribe(data => {
             console.log(data)
             this.products = data;
+        });
+        this.docenciaService.listarProfesor().subscribe(data => {
+            console.log(data)
+            this.customers = data;
+       
         });
   
         this.cols = [
@@ -82,6 +87,19 @@ export class TaskComponent implements OnInit {
         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
         this.selectedProducts = [];
+    }
+    calculateCustomerTotals(name: string) {
+        let total = 0;
+
+        if (this.customers) {
+            for (let customer of this.customers) {
+                if (customer.evento?.name === name) {
+                    total++;
+                }
+            }
+        }
+
+        return total;
     }
     calculateCustomerTotal(name: string) {
         let total = 0;

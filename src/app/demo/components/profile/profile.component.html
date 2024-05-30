@@ -6,7 +6,7 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)=" openNew(); addProfile()"></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)=" openNew()"></button>
                         <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
                     </div>
                 </ng-template>
@@ -168,18 +168,40 @@
                 </div>
                 <div class="field">
                     <label for="name">Title</label>
-                    <input type="text" pInputText id="titulo" [(ngModel)]="product.titulo" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.titulo}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.titulo">titulo is required.</small>
+                    <p-dropdown [(ngModel)]="product.titulo" inputId="titulo" optionValue="label" [options]="title" placeholder="Select">
+                        <ng-template pTemplate="selectedItem">
+                            <span *ngIf="product && product.titulo" >{{product.titulo}}</span>
+                        </ng-template>
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
                 </div>
                 <div class="field">
                     <label for="name">Document Category</label>
-                    <input type="text" pInputText id="categoria_doc" [(ngModel)]="product.categoria_doc" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.categoria_doc}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.categoria_doc">categoria docente is required.</small>
+                    <p-dropdown [(ngModel)]="product.categoria_doc" inputId="categoria_doc" optionValue="label" [options]="titless" placeholder="Select">
+                        <ng-template pTemplate="selectedItem">
+                            <span *ngIf="product && product.categoria_doc" >{{product.categoria_doc}}</span>
+                        </ng-template>
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
+            
                 </div>
                 <div class="field">
+              
                     <label for="name">Scientific Categories</label>
-                    <input type="text" pInputText id="categorias_cientificas" [(ngModel)]="product.categorias_cientificas" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.categorias_cientificas}"/>
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.categorias_cientificas">categorias cientificas is required.</small>
+                    <p-dropdown [(ngModel)]="product.categorias_cientificas" inputId="categorias_cientificas" optionValue="label" [options]="titles" placeholder="Select">
+                        <ng-template pTemplate="selectedItem">
+                            <span *ngIf="product && product.categorias_cientificas" >{{product.categorias_cientificas}}</span>
+                        </ng-template>
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
+
+                
                 </div>
                 <div class="field">
                     <label for="name">Responsibility</label>

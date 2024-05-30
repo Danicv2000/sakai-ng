@@ -32,6 +32,10 @@ export class ProfileComponent implements OnInit {
   cols: any[] = [];
 
   statuses: any[] = [];
+  
+  title: any[] = [];
+  titles: any[] = [];
+  titless: any[] = [];
 
   rowsPerPageOptions = [5, 10, 20];
 
@@ -62,39 +66,56 @@ export class ProfileComponent implements OnInit {
           { label: 'Contrato', value: 'Contrato' },
           { label: 'Colaborar', value: 'Colaborar' }
       ];
+      this.title = [
+        { label: 'Lic', value: 'Lic' },
+        { label: 'Ing', value: 'Ing' }
+    ];
+    this.titles = [
+        { label: 'DrC', value: 'DrC' },
+        { label: 'MsC', value: 'MsC' }
+    ];
+    this.titless = [
+        { label: 'PA', value: 'PA' },
+        { label: 'I', value: 'I' },
+        { label: 'ADI', value: 'ADI' },
+        { label: 'PT', value: 'PT' },
+        { label: 'ATD', value: 'ATD' },
+        { label: 'A', value: 'A' }
+    ];
   }
 
-    openNew() {
-        this.product = {
-            name: '',
-            email: '',
-            telefono: 0,
-            movil: 0,
-            categoria_doc: '',
-            categorias_cientificas: '',
-            titulo: '',
-            responsabilidad: '',
-            tipo_relacion: '',
-        };
-        this.submitted = false;
-        this.productDialog = true;
-    }
+  openNew() { 
+    this.product = { 
+        name: '', 
+        email: '', 
+        telefono: 0, 
+        movil: 0, 
+        categoria_doc: null, 
+        categorias_cientificas: null, 
+        titulo: null, 
+        responsabilidad: '', 
+        tipo_relacion: '', 
+    }; 
+    this.submitted = false; 
+    this.productDialog = true; 
+}
 
-    addProfile() {
-        if (this.productDialog) {
-            this.docenciaService.agregarProfesor(this.product).subscribe(
-                response => {
-                    console.log('Perfil creado con éxito', response);
-                    this.openNew(); // Abre un nuevo diálogo después de agregar el perfil
-                },
-                error => {
-                    console.log('Hubo un error al crear el perfil', error);
-                }
-            );
-        } else {
-            console.log('Debe abrir el diálogo del producto antes de agregar un perfil');
-        }
-    }
+submit() {
+    if (this.productDialog) { 
+        this.docenciaService.agregarProfesor(this.product).subscribe( 
+            response => { 
+                console.log('Perfil creado con éxito', response); 
+                this.openNew(); // Abre un nuevo diálogo después de agregar el perfil 
+            }, 
+            error => { 
+                console.log('Hubo un error al crear el perfil', error); 
+            } 
+        ); 
+    } else { 
+        console.log('Debe abrir el diálogo del producto antes de agregar un perfil'); 
+    } 
+}
+
     deleteSelectedProducts() {
       this.deleteProductsDialog = true;
   }

@@ -28,23 +28,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
     highcharts: typeof Highcharts = Highcharts;
     chartOptions: any;
     chartOption: any;
+    chartOp: any;
     departments:Depa[]=[]
     department:Depa[]=[]
     count=[]
     @ViewChild('htmlData') htmlData!: ElementRef;
     basicData: any;
-
+    basicDatas: any;
     basicOptions: any;
     Api="http://127.0.0.1:8000/counting"
     Apis="http://127.0.0.1:8000/countdis"
+    ApiUrl="http://127.0.0.1:8000/co"
  
     ing_total = [];
     lic_total = [];
+   PA_total = [];
+   I_total = [];
+ ADI_total = [];
+   PT_total = [];
+  ATD_total = [];
+  A_total = [];
+
     chartData: any;
     options: any;
     list = [];
     listdrc= [];
     listevent: any;
+    listprofile: any;
     private documentStyle = getComputedStyle(document.documentElement);
     private textColor = this.documentStyle.getPropertyValue('--text-color');
     private textColorSecondary = this.documentStyle.getPropertyValue('--text-color-secondary');
@@ -61,7 +71,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.getDepartments();
        this.getCiens();
        this.get();
-
+       this.gets();
+       this.getDiscipline();
        this.options = {
         title:  'My Dashboard' ,
         widgets: [
@@ -140,6 +151,99 @@ export class DashboardComponent implements OnInit, OnDestroy {
    
 
     }
+    getDiscipline(){
+        this.http.get(this.ApiUrl).subscribe((data:any) => { 
+            console.log(data)
+    
+            this.departments.push(data.total) // Cambiado a 'total'
+this.PA_total.push(data.PA_total) // Añadido 'PA_total'
+this.I_total.push(data.I_total) // Añadido 'I_total'
+this.ADI_total.push(data.ADI_total) // Añadido 'ADI_total'
+this.PT_total.push(data.PT_total) // Añadido 'PT_total'
+this.ATD_total.push(data.ATD_total) // Añadido 'ATD_total'
+this.A_total.push(data.A_total) // Añadido 'A_total'
+
+this.basicDatas = {
+  labels: ['titulo'],
+  datasets: [
+    {
+        label: 'PA totales',
+        data: this.PA_total,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2
+    },
+    {
+        label: 'I totales',
+        data: this.I_total,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2
+    },
+    {
+        label: 'ADI totales',
+        data: this.ADI_total,
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        borderColor: 'rgba(255, 206, 86, 1)',
+        borderWidth: 2
+    },
+    {
+        label: 'PT totales',
+        data: this.PT_total,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2
+    },
+    {
+        label: 'ATD totales',
+        data: this.ATD_total,
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderWidth: 2
+    },
+    {
+        label: 'A totales',
+        data: this.A_total,
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 2
+    }
+]
+
+};
+
+            this.chartOp = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: this.textColor
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: this.textColorSecondary
+                        },
+                        grid: {
+                            color: this.surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: this.textColorSecondary
+                        },
+                        grid: {
+                            color: this.surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
+          })
+    }
     getCiens() {
       this.http.get(this.Apis).subscribe((data:any) => { 
         console.log(data)
@@ -213,6 +317,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
      );
      
        }
+       gets(){
+        this.docencia.getall().subscribe
+         (response => {
+          
+             console.log(response);
+             this.listprofile=response;
+           } 
+       );
+       
+         }
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

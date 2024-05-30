@@ -14,26 +14,26 @@ const burl = 'http://localhost:8000/api/relaciones/';
 const bu = 'http://localhost:8000/api/re/';
 const back = 'http://localhost:8000/api/asignar';
 
-const bUrl = 'http://localhost:8000/api/send';
+const bUrl = 'http://localhost:8000/send';
 
-const cont ='http://localhost:8000/api/count';
-const conte ='http://localhost:8000/api/counte';
-const Aping="http://127.0.0.1:8000/api/counting";
-const Urlic="http://127.0.0.1:8000/api/countlic";
-const dis="http://127.0.0.1:8000/api/countdis";
+const cont ='http://localhost:8000/count';
+const conte ='http://localhost:8000/counte';
+const Aping="http://127.0.0.1:8000/counting";
+const Urlic="http://127.0.0.1:8000/countlic";
+const dis="http://127.0.0.1:8000/countdis";
 const msc="http://127.0.0.1:8000/api/countmsc";
 const drc="http://127.0.0.1:8000/api/countdrc";
 const dep="http://127.0.0.1:8000/api/depa/";
 
-const pa="http://127.0.0.1:8000/api/countpa";
-const i="http://127.0.0.1:8000/api/counti";
-const adi="http://127.0.0.1:8000/api/countadi";
-const pt="http://127.0.0.1:8000/api/countpt";
-const atd="http://127.0.0.1:8000/api/countatd";
-const a="http://127.0.0.1:8000/api/counta";
+const pa="http://127.0.0.1:8000/countpa";
+const i="http://127.0.0.1:8000/counti";
+const adi="http://127.0.0.1:8000/countadi";
+const pt="http://127.0.0.1:8000/countpt";
+const atd="http://127.0.0.1:8000/countatd";
+const a="http://127.0.0.1:8000/counta";
 
-const lic="http://127.0.0.1:8000/api/dis";
-const ing="http://127.0.0.1:8000/api/disi";
+const lic="http://127.0.0.1:8000/dis";
+const ing="http://127.0.0.1:8000/disi";
 
 const d="http://127.0.0.1:8000/api/di";
 const m="http://127.0.0.1:8000/api/d";
